@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
 });
 
 FormTextInput.propTypes = {
-  navigation: PropTypes.object,
+  style: PropTypes.object,
 };
 
 export default FormTextInput;

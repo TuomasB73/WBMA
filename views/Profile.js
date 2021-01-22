@@ -18,9 +18,9 @@ const Profile = ({navigation}) => {
   };
   return (
     <SafeAreaView style={styles.container}>
-      <Text>Profile</Text>
-      <Text>Name: {user.username}</Text>
-      <Text>Email: {user.email}</Text>
+      <Text style={styles.profileHeader}>Profile</Text>
+      <Text style={styles.profileInformation}>Name: {user.username}</Text>
+      <Text style={styles.profileInformation}>Email: {user.email}</Text>
       {/* <Text>id: {user.user_id}</Text> */}
       <Button title={'Logout'} onPress={logout} />
     </SafeAreaView>
@@ -34,6 +34,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: 40,
+  },
+  profileHeader: {
+    fontSize: 40,
+    margin: 30,
+  },
+  profileInformation: {
+    fontSize: 20,
+    margin: 20,
   },
 });
 

@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {View, Button} from 'react-native';
+import {StyleSheet, View, Button} from 'react-native';
 import PropTypes from 'prop-types';
 import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -30,17 +30,26 @@ const LoginForm = ({navigation}) => {
         autoCapitalize="none"
         placeholder="username"
         onChangeText={(txt) => handleInputChange('username', txt)}
+        style={styles.formTextInput}
       />
       <FormTextInput
         autoCapitalize="none"
         placeholder="password"
         onChangeText={(txt) => handleInputChange('password', txt)}
         secureTextEntry={true}
+        style={styles.formTextInput}
       />
       <Button title="Login" onPress={doLogin} />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  formTextInput: {
+    width: 300,
+    margin: 10,
+  },
+});
 
 LoginForm.propTypes = {
   navigation: PropTypes.object,

@@ -1,11 +1,10 @@
 import React, {useContext, useState} from 'react';
-import {Alert, View} from 'react-native';
-import {Button} from 'react-native-elements';
+import {View, Alert} from 'react-native';
+import {Input, Button} from 'react-native-elements';
 import PropTypes from 'prop-types';
 import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useLogin} from '../hooks/ApiHooks';
-import FormTextInput from './FormTextInput';
 import useLoginForm from '../hooks/LoginHooks';
 
 const LoginForm = ({navigation}) => {
@@ -24,19 +23,19 @@ const LoginForm = ({navigation}) => {
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      console.error('postLogin error', error);
+      console.error('postLogin error', error.message);
       Alert.alert('Invalid username or password');
     }
   };
 
   return (
     <View>
-      <FormTextInput
+      <Input
         autoCapitalize="none"
         placeholder="username"
         onChangeText={(txt) => handleInputChange('username', txt)}
       />
-      <FormTextInput
+      <Input
         autoCapitalize="none"
         placeholder="password"
         onChangeText={(txt) => handleInputChange('password', txt)}

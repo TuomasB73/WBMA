@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {StyleSheet, Alert, Button, View} from 'react-native';
+import {Alert, Button, View} from 'react-native';
 import PropTypes from 'prop-types';
 import {useLogin, useUser} from '../hooks/ApiHooks';
 import FormTextInput from './FormTextInput';
@@ -35,38 +35,27 @@ const RegisterForm = ({navigation}) => {
         autoCapitalize="none"
         placeholder="username"
         onChangeText={(txt) => handleInputChange('username', txt)}
-        style={styles.formTextInput}
       />
       <FormTextInput
         autoCapitalize="none"
         placeholder="password"
         onChangeText={(txt) => handleInputChange('password', txt)}
         secureTextEntry={true}
-        style={styles.formTextInput}
       />
       <FormTextInput
         autoCapitalize="none"
         placeholder="email"
         onChangeText={(txt) => handleInputChange('email', txt)}
-        style={styles.formTextInput}
       />
       <FormTextInput
         autoCapitalize="none"
         placeholder="full name"
         onChangeText={(txt) => handleInputChange('full_name', txt)}
-        style={styles.formTextInput}
       />
       <Button title="Register!" onPress={doRegister} />
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  formTextInput: {
-    width: 300,
-    margin: 10,
-  },
-});
 
 RegisterForm.propTypes = {
   navigation: PropTypes.object,

@@ -1,5 +1,6 @@
-import React, {useContext} from 'react';
-import {StyleSheet, View, Button} from 'react-native';
+import React, {useContext, useState} from 'react';
+import {Alert, View} from 'react-native';
+import {Button} from 'react-native-elements';
 import PropTypes from 'prop-types';
 import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -8,19 +9,23 @@ import FormTextInput from './FormTextInput';
 import useLoginForm from '../hooks/LoginHooks';
 
 const LoginForm = ({navigation}) => {
+  const [loading, setLoading] = useState(false);
   const {inputs, handleInputChange} = useLoginForm();
   const {postLogin} = useLogin();
-  const {setIsLoggedIn, setUser} = useContext(MainContext);
+  const {setUser, setIsLoggedIn} = useContext(MainContext);
 
   const doLogin = async () => {
+    setLoading(true);
     try {
       const userData = await postLogin(inputs);
+      setUser(userData.user);
       setIsLoggedIn(true);
       await AsyncStorage.setItem('userToken', userData.token);
-      setUser(userData.user);
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       console.error('postLogin error', error);
-      // TODO: add user notification about login error
+      Alert.alert('Invalid username or password');
     }
   };
 
@@ -30,26 +35,17 @@ const LoginForm = ({navigation}) => {
         autoCapitalize="none"
         placeholder="username"
         onChangeText={(txt) => handleInputChange('username', txt)}
-        style={styles.formTextInput}
       />
       <FormTextInput
         autoCapitalize="none"
         placeholder="password"
         onChangeText={(txt) => handleInputChange('password', txt)}
         secureTextEntry={true}
-        style={styles.formTextInput}
       />
-      <Button title="Login" onPress={doLogin} />
+      <Button title="Login" onPress={doLogin} loading={loading} />
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  formTextInput: {
-    width: 300,
-    margin: 10,
-  },
-});
 
 LoginForm.propTypes = {
   navigation: PropTypes.object,

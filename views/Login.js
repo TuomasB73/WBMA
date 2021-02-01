@@ -3,7 +3,6 @@ import {
   StyleSheet,
   View,
   KeyboardAvoidingView,
-  Platform,
   Keyboard,
   TouchableWithoutFeedback,
 } from 'react-native';
@@ -14,7 +13,6 @@ import {useUser} from '../hooks/ApiHooks';
 import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
 import {Card, ListItem, Text} from 'react-native-elements';
-import {ScrollView} from 'react-native-gesture-handler';
 
 const Login = ({navigation}) => {
   const {setIsLoggedIn, setUser} = useContext(MainContext);
@@ -40,13 +38,7 @@ const Login = ({navigation}) => {
   }, []);
 
   return (
-    <ScrollView>
-      {/* disabled by teacher for android testing */}
-      {/* <KeyboardAvoidingView
-        style={styles.container}
-        behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
-        enabled
-      > */}
+    <KeyboardAvoidingView style={styles.container} behavior={'padding'} enabled>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.inner}>
           <View style={styles.appTitle}>
@@ -85,8 +77,7 @@ const Login = ({navigation}) => {
           </View>
         </View>
       </TouchableWithoutFeedback>
-      {/* </KeyboardAvoidingView> */}
-    </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -105,7 +96,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   form: {
-    flex: 2,
+    flex: 6,
   },
   text: {
     alignSelf: 'center',
